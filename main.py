@@ -19,12 +19,15 @@ verde = (0, 255, 0)
 # parametros cobrinha
 
 tamanho_quadrado = 20
-velocidade_cobra = 15
+velocidade_jogo = 15
 
 def gerar_comida():
     comida_x = round(random.randrange(0, largura - tamanho_quadrado) / 20.0)* 20.0
     comida_y = round(random.randrange(0, altura - tamanho_quadrado) / 20.0)* 20.0
     return comida_x, comida_y
+
+def desenhar_comida(tamanho,comida_y,comida_x):
+    pygame.draw.rect(tela,verde,[comida_x,comida_y,tamanho,tamanho])
 
 
 def rodar_jogo():
@@ -35,11 +38,11 @@ def rodar_jogo():
 
     velocidade_x = 0
     velocidade_y = 0 
-
+    
     tamanho_cobra = 1
     pixels = []
 
-    comida_x, comida_y = gerarcomida()
+    comida_x, comida_y = gerar_comida()
 
     while not fim_jogo:
         tela.fill(preta)
@@ -48,5 +51,10 @@ def rodar_jogo():
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
                 fim_jogo = True
+        desenhar_comida(tamanho_quadrado,comida_x , comida_y )
 
+        pygame.display.update()
+        relogio.tick(velocidade_jogo)
+
+    
 rodar_jogo()
