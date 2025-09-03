@@ -8,7 +8,7 @@ pygame.display.set_caption("Snake Python")
 
 #criando tela
 
-largura, altura = 600, 400
+largura, altura = 800, 600
 tela = pygame.display.set_mode((largura,altura))
 relogio = pygame.time.Clock()
 
@@ -31,12 +31,12 @@ def gerar_comida():
 
 
 def desenhar_comida(tamanho, comida_y, comida_x):
-    pygame.draw.rect(tela, verde, [comida_x, comida_y, tamanho, tamanho])
+    pygame.draw.rect(tela, preta, [comida_x, comida_y, tamanho, tamanho])
 
 
 def desenhar_cobra(tamanho,pixels):
     for pixel in pixels:
-        pygame.draw.rect(tela,branca,[pixel[0], pixel[1], tamanho, tamanho])
+        pygame.draw.rect(tela,verde,[pixel[0], pixel[1], tamanho, tamanho])
 
 
 def desenhar_pontuacao(pontuacao):
@@ -84,6 +84,11 @@ def rodar_jogo():
         desenhar_pontuacao(tamanho_cobra - 1)
 
         pygame.display.update()
+#       define se a cobrinha comeu o alimento, irá gerar outro 
+        if x == comida_x and y == comida_y:
+            tamanho_cobra =+ 1 
+            comida_x, comida_y = gerar_comida()
+
         relogio.tick(velocidade_jogo)
 
     
