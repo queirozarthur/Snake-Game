@@ -22,7 +22,7 @@ verde = (0, 255, 0)
 # parametros cobrinha
 
 tamanho_quadrado = 20
-velocidade_jogo = 15
+velocidade_jogo = 25
 
 def gerar_comida():
     comida_x = round(random.randrange(0, largura - tamanho_quadrado) / 20.0)* 20.0
@@ -30,8 +30,8 @@ def gerar_comida():
     return comida_x, comida_y
 
 
-def desenhar_comida(tamanho, comida_y, comida_x):
-    pygame.draw.rect(tela, preta, [comida_x, comida_y, tamanho, tamanho])
+def desenhar_comida(tamanho, comida_x, comida_y):
+    pygame.draw.rect(tela, branca, [comida_x, comida_y, tamanho, tamanho])
 
 
 def desenhar_cobra(tamanho,pixels):
@@ -43,6 +43,23 @@ def desenhar_pontuacao(pontuacao):
     fonte = pygame.font.SysFont("Helvetica", 20)
     texto = fonte.render(f"Pontos {pontuacao}",True ,vermelha)
     tela.blit(texto, [1, 1])
+
+#movimentação da cobrinha
+
+def selecionar_velocidade(tecla):
+    if tecla == pygame.K_DOWN:
+        velocidade_x = 0 
+        velocidade_y = tamanho_quadrado
+    elif tecla == pygame.K_UP:
+        velocidade_x = 0
+        velocidade_y = -tamanho_quadrado
+    elif tecla == pygame.K_RIGHT:
+        velocidade_x = tamanho_quadrado
+        velocidade_y = 0
+    elif tecla == pygame.K_LEFT:
+        velocidade_x = -tamanho_quadrado
+        velocidade_y = 0
+    return velocidade_x, velocidade_y
 
 def rodar_jogo():
     fim_jogo = False
@@ -65,9 +82,14 @@ def rodar_jogo():
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
                 fim_jogo = True
+            elif evento.type == pygame.KEYDOWN:
+                velocidade_x,velocidade_y = selecionar_velocidade(evento.key)
 
 
         desenhar_comida(tamanho_quadrado,comida_x , comida_y )
+
+        x += velocidade_x
+        y += velocidade_y
 
 #        desenhar_cobra()
 
@@ -81,12 +103,13 @@ def rodar_jogo():
                 fim_jogo = True
 
         desenhar_cobra(tamanho_quadrado, pixels)
+
         desenhar_pontuacao(tamanho_cobra - 1)
 
         pygame.display.update()
 #       define se a cobrinha comeu o alimento, irá gerar outro 
         if x == comida_x and y == comida_y:
-            tamanho_cobra =+ 1 
+            tamanho_cobra += 1 
             comida_x, comida_y = gerar_comida()
 
         relogio.tick(velocidade_jogo)
