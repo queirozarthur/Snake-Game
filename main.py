@@ -27,6 +27,7 @@ velocidade_jogo = 25
 def gerar_comida():
     comida_x = round(random.randrange(0, largura - tamanho_quadrado) / 20.0)* 20.0
     comida_y = round(random.randrange(0, altura - tamanho_quadrado) / 20.0)* 20.0
+
     return comida_x, comida_y
 
 
@@ -50,15 +51,19 @@ def selecionar_velocidade(tecla):
     if tecla == pygame.K_DOWN:
         velocidade_x = 0 
         velocidade_y = tamanho_quadrado
+
     elif tecla == pygame.K_UP:
         velocidade_x = 0
         velocidade_y = -tamanho_quadrado
+
     elif tecla == pygame.K_RIGHT:
         velocidade_x = tamanho_quadrado
         velocidade_y = 0
+
     elif tecla == pygame.K_LEFT:
         velocidade_x = -tamanho_quadrado
         velocidade_y = 0
+
     return velocidade_x, velocidade_y
 
 def rodar_jogo():
@@ -88,6 +93,12 @@ def rodar_jogo():
 
         desenhar_comida(tamanho_quadrado,comida_x , comida_y )
 
+#       barreira invisivel
+
+        if x <0 or x >= largura or y < 0 or y >= altura:
+            fim_jogo = True
+
+
         x += velocidade_x
         y += velocidade_y
 
@@ -97,7 +108,9 @@ def rodar_jogo():
 
         if len(pixels) > tamanho_cobra:
             del pixels[0]
+
         #se ela bateu no proprio corpo
+
         for pixel in pixels[:-1]:
             if pixel == [x,y]:
                 fim_jogo = True
