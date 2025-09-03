@@ -8,7 +8,7 @@ pygame.display.set_caption("Snake Python")
 
 #criando tela
 
-largura, altura = 1200, 950
+largura, altura = 1200, 800
 tela = pygame.display.set_mode((largura,altura))
 relogio = pygame.time.Clock()
 
@@ -129,4 +129,5 @@ def rodar_jogo():
 
     
 rodar_jogo()
+
 
