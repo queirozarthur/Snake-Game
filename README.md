@@ -22,5 +22,5 @@ Uma implementação simples do clássico **jogo da cobrinha**, feita para aprend
 
 1. Clone este repositório:
    ```bash
-   git clone https://github.com/seu-usuario/snake-pygame.git
+   git clone https://github.com/queirozarthur/snake-pygame.git
    cd snake-pygame
